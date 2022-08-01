@@ -17,7 +17,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage })
 
-router.get('/feirn', function(req, res, next){
+router.get('/', function(req, res, next){
   res.render('index', {title: "Express"})
 })
 
