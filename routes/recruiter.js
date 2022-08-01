@@ -2,8 +2,7 @@ var express = require('express');
 const multer = require('multer')
 var router = express.Router();
 let recruiterController = require('../Controller/recruiterController')
-let seekerController = require('../Controller/seekerController')
-let adminController = require('../Controller/adminController')
+let authController = require('../Controller/authController')
 
 
 const storage = multer.diskStorage({
@@ -18,18 +17,21 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage })
 
+// ------------------------------------------------------------------------LOGIN------------------------------------
 
+router.post('/login', authController.loginRecruiter)
+router.post('/changepassword', authController.protectRecruiter)
 
 // -----------------------------------------------------account--------------------------------------
 
-router.post('/addrecruiter', recruiterController.addRecruiter);
-router.post('/updaterecruiter', upload.single('logo'), recruiterController.updateRecruiter);
-router.get('/deleterecruiter', recruiterController.deleteRecruiter);
+router.post('/addrecruiter', authController.protectRecruiter, recruiterController.addRecruiter);
+router.post('/updaterecruiter', authController.protectRecruiter, upload.single('logo'), recruiterController.updateRecruiter);
+router.get('/deleterecruiter', authController.protectRecruiter, recruiterController.deleteRecruiter);
 
 // ------------------------------------job-----------------------------------
 
-router.post('/postjob', recruiterController.postJob)
-router.post('/updatejob', recruiterController.updateJob)
-router.get('/deletejob', recruiterController.deleteJob)
+router.post('/postjob', authController.protectRecruiter, recruiterController.postJob)
+router.post('/updatejob', authController.protectRecruiter, recruiterController.updateJob)
+router.get('/deletejob', authController.protectRecruiter, recruiterController.deleteJob)
 
 module.exports = router;

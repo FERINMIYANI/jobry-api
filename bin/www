@@ -12,14 +12,14 @@ let mongoose = require('mongoose')
 mongoose.connect('mongodb+srv://ferin:ferin@cluster0.eknpr.mongodb.net/Job?retryWrites=true&w=majority').then(() => {
   console.log("DB Connected :)");
 }).catch((e) => {
-  console.log("Db Disconnected :(");
+  console.log("Db Disconnected :( ", e);
 })
 
 /**
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.PORT || '3000');
+var port = normalizePort(process.env.PORT || '5000');
 app.set('port', port);
 
 /**

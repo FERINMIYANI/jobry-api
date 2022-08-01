@@ -1,8 +1,7 @@
 var express = require('express');
 const multer = require('multer')
 var router = express.Router();
-let recruiterController = require('../Controller/recruiterController')
-let seekerController = require('../Controller/seekerController')
+let authController = require('../Controller/authController')
 let adminController = require('../Controller/adminController')
 
 
@@ -18,13 +17,18 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage })
 
+router.get('/', function(req, res, next){
+  res.render('index', {title: "Express"})
+})
 
-router.get('/allrecruiter', adminController.allRecruiter)
-router.get('/allseeker', adminController.allSeeker)
+router.post('/login', authController.loginAdmin)
 
-router.get('/alljobs', adminController.allJobs)
+router.get('/allrecruiter', authController.protectAdmin, adminController.allRecruiter)
+router.get('/allseeker', authController.protectAdmin, adminController.allSeeker)
 
-router.post('/addadmin', adminController.addAdmin)
-router.get('/deleteadmin', adminController.deleteAdmin)
+router.get('/alljobs', authController.protectAdmin, adminController.allJobs)
+
+router.post('/addadmin', authController.protectAdmin, adminController.addAdmin)
+router.get('/deleteadmin', authController.protectAdmin, adminController.deleteAdmin)
 
 module.exports = router;

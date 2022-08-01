@@ -1,9 +1,8 @@
 var express = require('express');
 const multer = require('multer')
 var router = express.Router();
-let recruiterController = require('../Controller/recruiterController')
 let seekerController = require('../Controller/seekerController')
-let adminController = require('../Controller/adminController')
+let authController = require('../Controller/authController')
 
 
 const storage = multer.diskStorage({
@@ -18,10 +17,16 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage })
 
-router.post('/addSeeker', seekerController.addSeeker)
-router.post('/updateSeeker', upload.single('image'), seekerController.updateSeeker)
-router.get('/deleteSeeker', seekerController.deleteSeeker)
-+
-router.post('/placebid', seekerController.placeBid)
+router.post('/login', authController.loginEmployer)
+
+router.post('/addSeeker', authController.protectEmployer, upload.single('image'), seekerController.addSeeker)
+router.post('/updateSeeker', authController.protectEmployer, upload.single('image'), seekerController.updateSeeker)
+router.get('/deleteSeeker', authController.protectEmployer, seekerController.deleteSeeker)
+
+router.get('/seeker', authController.protectEmployer, seekerController.seeker)
+
+router.post('/placebid', authController.protectEmployer, seekerController.placeBid)
+
+router.post('/changepassword', authController.protectEmployer, seekerController.changePassword)
 
 module.exports = router;

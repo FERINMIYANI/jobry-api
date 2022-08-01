@@ -5,6 +5,7 @@ const ObjectId = Schema.ObjectId;
 
 const seekerSchema = new Schema({
     username: String,
+    image: String,
     email: {
         type: String,
         required: [true, 'Email Address Is Required'],
@@ -25,7 +26,6 @@ const seekerSchema = new Schema({
     Degree: String,
     School: String,
     College: String,
-    photo: String,
     website: String,
     age: Number
 });

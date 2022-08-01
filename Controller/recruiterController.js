@@ -108,3 +108,23 @@ exports.deleteJob = async function (req, res, next) {
         })
     }
 }
+
+exports.changePassword = async function (req, res, next) {
+    try {
+        let data = { ...req.body }
+        let id = req.headers.id
+        let details = await Recruiter.findById(id)
+        if (details.password != data.oldPassword) {
+            throw new Error("Incorrect Old Password")
+        }
+        await Recruiter.findByIdAndUpdate(id, { password: data.newPassword })
+        return res.status(200).json({
+            message: 'Password Change Successs'
+        })
+    } catch (error) {
+        console.log(error);
+        return res.status(404).json({
+            message: error.message
+        })
+    }
+}
