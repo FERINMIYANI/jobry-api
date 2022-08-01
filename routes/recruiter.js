@@ -20,18 +20,20 @@ const upload = multer({ storage: storage })
 // ------------------------------------------------------------------------LOGIN------------------------------------
 
 router.post('/login', authController.loginRecruiter)
-router.post('/changepassword', authController.protectRecruiter)
+router.post('/passwordreq', recruiterController.passwordReq)
+router.post('/changepassword', authController.protectRecruiter, recruiterController.changePassword)
 
 // -----------------------------------------------------account--------------------------------------
 
 router.post('/addrecruiter', authController.protectRecruiter, recruiterController.addRecruiter);
 router.post('/updaterecruiter', authController.protectRecruiter, upload.single('logo'), recruiterController.updateRecruiter);
 router.get('/deleterecruiter', authController.protectRecruiter, recruiterController.deleteRecruiter);
+router.get('/recruiter', authController.protectRecruiter, recruiterController.recruiter)
 
 // ------------------------------------job-----------------------------------
 
 router.post('/postjob', authController.protectRecruiter, recruiterController.postJob)
 router.post('/updatejob', authController.protectRecruiter, recruiterController.updateJob)
-router.get('/deletejob', authController.protectRecruiter, recruiterController.deleteJob)
+router.get('/deletejob', authController.protectRecruiter, recruiterController.deleteJob),
 
 module.exports = router;

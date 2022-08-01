@@ -17,9 +17,9 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage })
 
-router.get('/', function(req, res, next){
-  res.render('index', {title: "Express"})
-})
+// router.get('/', function (req, res, next) {
+//   res.render('index', { title: "Express" })
+// })
 
 router.post('/login', authController.loginAdmin)
 

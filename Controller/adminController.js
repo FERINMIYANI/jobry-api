@@ -21,7 +21,7 @@ exports.addAdmin = async function (req, res, next) {
 
 exports.deleteAdmin = async function (req, res, next) {
     try {
-        let id = req.query.id
+        let id = req.headers.id
         await Admin.findByIdAndDelete(id)
         return res.status(200).json({
             message: 'Data Deleted Successfuly'

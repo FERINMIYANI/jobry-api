@@ -27,7 +27,7 @@ exports.addSeeker = async function (req, res, next) {
 exports.updateSeeker = async function (req, res, next) {
     try {
         let data = { ...req.body }
-        let id = req.query.id
+        let id = req.headers.id
         if (!data) {
             throw new Error("Data Not Found")
         }
@@ -46,7 +46,7 @@ exports.updateSeeker = async function (req, res, next) {
 
 exports.deleteSeeker = async function (req, res, next) {
     try {
-        let id = req.query.id
+        let id = req.headers.id
         let details = await Seeker.findByIdAndDelete(id)
         return res.status(200).json({
             message: 'Data Deleted',
@@ -63,7 +63,7 @@ exports.deleteSeeker = async function (req, res, next) {
 exports.placeBid = async function (req, res, next) {
     try {
         let data = { ...req.body }
-        let id = req.query.id
+        let id = req.headers.id
         await Job.findByIdAndUpdate(id, { $push: { bids: data } })
         return res.status(200).json({
             message: "Bid Placed Successfuly"
@@ -78,7 +78,7 @@ exports.placeBid = async function (req, res, next) {
 
 exports.seeker = async function (req, res, next) {
     try {
-        let id = req.query.id
+        let id = req.headers.id
         let details = await Seeker.findById(id)
         return res.status(200).json({
             details
