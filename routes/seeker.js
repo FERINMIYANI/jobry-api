@@ -19,7 +19,7 @@ const upload = multer({ storage: storage })
 
 router.post('/login', authController.loginEmployer)
 
-router.post('/addSeeker', upload.single('image'), seekerController.addSeeker)
+router.post('/addSeeker', authController.protectEmployer, upload.single('image'), seekerController.addSeeker)
 router.post('/updateSeeker', authController.protectEmployer, upload.single('image'), seekerController.updateSeeker)
 router.get('/deleteSeeker', authController.protectEmployer, seekerController.deleteSeeker)
 
