@@ -8,16 +8,16 @@ const seekerSchema = new Schema({
     image: String,
     email: {
         type: String,
-        required: [true, 'Email Address Is Required'],
-        unique: [true, 'Same Email Already Exists']
+        // required: [true, 'Email Address Is Required'],
+        // unique: [true, 'Same Email Already Exists']
     },
     password: {
         type: String,
-        required: [true, 'Passwored Is Required']
+        // required: [true, 'Passwored Is Required']
     },
     mobile: {
         type: Number,
-        required: [true, 'mobile no is required']
+        // required: [true, 'mobile no is required']
     },
     specialism: String,
     state: String,
